@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "103871613806",
+    "firebase_url": "https://flatlander-c2954.firebaseio.com",
+    "project_id": "flatlander-c2954",
+    "storage_bucket": "flatlander-c2954.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103871613806:android:5b3ba6a7b72755c7",
+        "android_client_info": {
+          "package_name": "com.flatlander.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103871613806-r7n1k2oi1grqvk3gr82i7eshemv0okck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flatlander.android",
+            "certificate_hash": "3ecf5cfdaacc4b26c38feee5a02d074e47324a51"
+          }
+        },
+        {
+          "client_id": "103871613806-98luvshk7qgnu8b7dp0uhivhqvg4pg9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfRGs9su9-U0_8FvYi6vZMu8HMnLPPiVM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103871613806-r1t1bit0l45st3k3nlrebtmjienvc5r2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.colony.flatlander"
+              }
+            },
+            {
+              "client_id": "103871613806-98luvshk7qgnu8b7dp0uhivhqvg4pg9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Flatlander</string>
+
+    <!-- CATEGORIES -->
+    <string name="category_hiking">Hiking</string>
+    <string name="category_camping">Camping</string>
+    <string name="category_swimming">Swimming</string>
+    <string name="category_favorites">Favorites</string>
+    <string name="categories_error_load">Error loading categories</string>
+
+    <!-- GENERIC STRINGS -->
+    <string name="loading">Loading…</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
+
+</resources>

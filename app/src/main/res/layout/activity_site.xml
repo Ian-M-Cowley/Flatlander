@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".site.view.SiteActivity">
+
+    <include layout="@layout/item_site"/>
+
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/site_image_height"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_site_header_title"
+            style="@style/TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            tools:text="Mckinney Falls"/>
+
+        <TextView
+            android:id="@+id/text_site_header_description"
+            style="@style/TextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            tools:text="Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, it\'s a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge. Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, its a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge."/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_site_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"/>
+
+    <include layout="@layout/layout_toolbar"/>
+
+</FrameLayout>
