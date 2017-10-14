@@ -5,8 +5,8 @@ package com.flatlander.flatlander.model.siteitem
  */
 class MapSiteItem(id: Int,
                   type: String,
-                  var lat: Float,
-                  var lng : Float,
+                  var lat: Double,
+                  var lng : Double,
                   var name: String,
                   var googlePlacesId: String) : BaseSiteItem(id, type) {
 }

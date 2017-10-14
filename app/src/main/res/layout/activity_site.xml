@@ -29,7 +29,9 @@
             style="@style/TextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             tools:text="Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, it\'s a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge. Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, its a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge."/>
 
     </LinearLayout>
@@ -38,6 +40,7 @@
         android:id="@+id/recycler_site_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="475dp"
         android:clipChildren="false"
         android:clipToPadding="false"/>
 

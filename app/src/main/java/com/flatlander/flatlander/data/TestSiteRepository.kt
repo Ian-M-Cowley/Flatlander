@@ -17,7 +17,7 @@ class TestSiteRepository : SiteRepository {
     }
 
     override fun getSiteById(id: String): Single<Site> {
-        val siteItem1 = MapSiteItem(0, "map", 30.180544f, -97.721697f, "Mckinney Falls", "1234")
+        val siteItem1 = MapSiteItem(0, "map", 30.180544, -97.721697, "Mckinney Falls", "1234")
         val siteItem2 = ImageSiteItem(1, "image", "https://i.imgur.com/Sl1708Kh.jpg", 4928f, 3264f)
         val siteItem3 = ImageSiteItem(1, "image", "https://i.imgur.com/izA16IEh.jpg", 3264f, 4928f)
         val siteItem4 = ImageSiteItem(1, "image", "https://i.imgur.com/GQyXyg0h.jpg", 3264f, 4928f)
