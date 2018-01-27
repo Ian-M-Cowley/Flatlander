@@ -26,7 +26,7 @@ class MapComponent(itemView: View?) : BaseComponent(itemView) {
     override fun bind(siteItem: BaseSiteItem) {
         val mapSiteItem = siteItem as MapSiteItem
         mapView.getMapAsync({
-            val siteLocation = LatLng(mapSiteItem.lat, mapSiteItem.lng)
+            val siteLocation = LatLng(mapSiteItem.lat.toDouble(), mapSiteItem.long.toDouble())
             it.addMarker(MarkerOptions().position(siteLocation).title(mapSiteItem.name))
             it.moveCamera(CameraUpdateFactory.newLatLngZoom(siteLocation, 12.0f))
             it.uiSettings.setAllGesturesEnabled(false)

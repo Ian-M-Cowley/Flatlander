@@ -1,5 +1,6 @@
 package com.flatlander.flatlander.site.presenter
 
+import android.util.Log
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.site.SiteContract
@@ -31,6 +32,7 @@ class SitePresenter(override val view: SiteContract.View,
                     view.setHeaderDescription(it.description)
                     view.setSiteItems(it.siteItems)
                 }, {
+                    Log.d("SitePresenter", it.message)
                     view.showError(ERROR_LOADING, R.string.categories_error_load)
                 }))
     }

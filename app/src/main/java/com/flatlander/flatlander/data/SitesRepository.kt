@@ -6,7 +6,7 @@ import io.reactivex.Single
 /**
  * Created by iancowley on 8/24/17.
  */
-interface SiteRepository {
+interface SitesRepository {
 
     fun getSiteById(id: String) : Single<Site>
 }

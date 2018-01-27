@@ -1,6 +1,7 @@
 package com.flatlander.flatlander.site.interactor
 
-import com.flatlander.flatlander.data.TestSiteRepository
+import com.flatlander.flatlander.data.FirebaseSitesRepository
+import com.flatlander.flatlander.data.SitesRepository
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.site.SiteContract
 import io.reactivex.Single
@@ -12,8 +13,10 @@ import io.reactivex.schedulers.Schedulers
  */
 class SiteInteractor : SiteContract.Interactor {
 
+    private val dataSource : SitesRepository = FirebaseSitesRepository.instance
+
     override fun getSite(siteId: String) : Single<Site> {
-        return TestSiteRepository.instance.getSiteById(siteId)
+        return dataSource.getSiteById(siteId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
