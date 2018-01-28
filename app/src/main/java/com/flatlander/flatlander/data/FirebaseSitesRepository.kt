@@ -1,6 +1,5 @@
 package com.flatlander.flatlander.data
 
-import android.util.Log
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.siteitem.ImageSiteItem
 import com.flatlander.flatlander.model.siteitem.MapSiteItem
@@ -68,7 +67,6 @@ class FirebaseSitesRepository private constructor() : SitesRepository {
                             }
                         }
                     }
-                    Log.d(TAG, site.toString())
                     return@map site
                 }
     }
