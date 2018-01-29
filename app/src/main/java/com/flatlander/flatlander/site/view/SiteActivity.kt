@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -35,6 +36,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     @BindView(R.id.text_site_header_title) lateinit var headerTitle : TextView
     @BindView(R.id.text_site_header_description) lateinit var headerDescription : TextView
     @BindView(R.id.recycler_site_items) lateinit var recyclerView : RecyclerView
+    @BindView(R.id.fab_favorite) lateinit var favoriteButton : FloatingActionButton
 
     lateinit var presenter : SiteContract.Presenter
 
@@ -68,6 +70,8 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
+
         presenter.onViewAdded()
     }
 
@@ -100,6 +104,10 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     override fun setSiteItems(siteItems: List<BaseSiteItem>) {
         siteItemRecyclerAdapter = SiteItemRecyclerAdapter(this, siteItems)
         recyclerView.adapter = siteItemRecyclerAdapter
+    }
+
+    override fun setFavorite(isFavorite: Boolean) {
+
     }
 
     override fun onErrorDismissed(id: Int) {

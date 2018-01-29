@@ -24,8 +24,11 @@ interface SiteContract {
         fun setHeaderTitle(title: String)
 
         fun setHeaderDescription(description: String)
+
+        fun setFavorite(isFavorite : Boolean)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
+        fun onFavoriteClicked()
     }
 }
