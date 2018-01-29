@@ -1,6 +1,7 @@
 package com.flatlander.flatlander.categories.detail.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,7 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
 
     private fun bind(viewHolder: ViewHolder, site: SiteLite) {
         viewHolder.siteNameText.text = site.name
-        viewHolder.siteImage.loadImage(site.imageUrl)
+        viewHolder.siteImage.loadImage(site.imageUrl, Color.WHITE)
     }
 
     override fun getItemCount(): Int {

@@ -2,6 +2,7 @@ package com.flatlander.flatlander.site.view
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -85,7 +86,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun loadSiteImage(url: String) {
-        siteImage.loadImage(url)
+        siteImage.loadImage(url, Color.WHITE)
     }
 
     override fun setHeaderTitle(title: String) {

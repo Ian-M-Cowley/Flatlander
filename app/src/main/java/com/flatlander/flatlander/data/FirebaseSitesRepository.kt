@@ -60,7 +60,7 @@ class FirebaseSitesRepository private constructor() : SitesRepository {
                                 val textSiteItem = TextSiteItem(
                                         it.child("id").value as String,
                                         it.child("type").value as String,
-                                        it.child("title").value as String,
+                                        it.child("title").value as String?,
                                         it.child("description").value as String
                                 )
                                 site.siteItems.add(textSiteItem)
