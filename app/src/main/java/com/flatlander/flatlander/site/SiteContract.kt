@@ -26,10 +26,6 @@ interface SiteContract {
 
         fun loadSiteImage(url: String)
 
-        fun setHeaderTitle(title: String)
-
-        fun setHeaderDescription(description: String)
-
         fun setFavorite(isFavorite : Boolean)
 
         fun showSnackbar(@StringRes message: Int)

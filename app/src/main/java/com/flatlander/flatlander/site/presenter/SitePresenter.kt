@@ -4,6 +4,7 @@ import android.util.Log
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.SiteLite
+import com.flatlander.flatlander.model.siteitem.TextSiteItem
 import com.flatlander.flatlander.site.SiteContract
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -35,8 +36,15 @@ class SitePresenter(override val view: SiteContract.View,
                     site = it
                     isFavorite = interactor.isSiteFavorite(site)
                     view.setFavorite(isFavorite)
-                    view.setHeaderTitle(site.title)
-                    view.setHeaderDescription(site.description)
+
+                    // Add map site item
+                    site.defaultMapSiteItem?.let {
+                        site.siteItems.add(0, it)
+                    }
+
+                    // Add the header title and description
+                    site.siteItems.add(0, TextSiteItem("-1", "text", site.title, site.description))
+
                     view.setSiteItems(site.siteItems)
                 }, {
                     Log.d("SitePresenter", it.message)

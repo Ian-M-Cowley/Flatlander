@@ -8,41 +8,13 @@
 
     <include layout="@layout/item_site"/>
 
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/site_image_height"
-        android:background="@android:color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_site_header_title"
-            style="@style/TextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            tools:text="Mckinney Falls"/>
-
-        <TextView
-            android:id="@+id/text_site_header_description"
-            style="@style/TextDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            tools:text="Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, it\'s a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge. Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, its a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge."/>
-
-    </LinearLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_site_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingTop="475dp"/>
+        android:paddingTop="@dimen/site_image_height"/>
 
     <include layout="@layout/layout_toolbar"/>
 

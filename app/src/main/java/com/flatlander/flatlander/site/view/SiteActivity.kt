@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -36,9 +35,6 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     @BindView(R.id.toolbar) lateinit var toolbar : Toolbar
     @BindView(R.id.image_site) lateinit var siteImage : ImageView
     @BindView(R.id.text_site_name) lateinit var siteName : TextView
-    @BindView(R.id.layout_header) lateinit var headerLayout : View
-    @BindView(R.id.text_site_header_title) lateinit var headerTitle : TextView
-    @BindView(R.id.text_site_header_description) lateinit var headerDescription : TextView
     @BindView(R.id.recycler_site_items) lateinit var recyclerView : RecyclerView
     @BindView(R.id.fab_favorite) lateinit var favoriteButton : FloatingActionButton
 
@@ -99,14 +95,6 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     override fun loadSiteImage(url: String) {
         siteImage.loadImage(url, Color.WHITE)
-    }
-
-    override fun setHeaderTitle(title: String) {
-        headerTitle.text = title
-    }
-
-    override fun setHeaderDescription(description: String) {
-        headerDescription.text = description
     }
 
     override fun setSiteItems(siteItems: List<BaseSiteItem>) {
