@@ -79,8 +79,8 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         }
     }
 
-    override fun goToSiteScreen(siteLite: SiteLite) {
-        startActivity(SiteActivity.newIntent(this, siteLite))
+    override fun goToSiteScreen(category: Category, siteLite: SiteLite) {
+        startActivity(SiteActivity.newIntent(this, category, siteLite))
     }
 
     override fun setSites(sites: List<SiteLite>) {

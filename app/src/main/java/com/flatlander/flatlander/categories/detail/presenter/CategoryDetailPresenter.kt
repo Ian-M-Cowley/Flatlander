@@ -40,7 +40,7 @@ class CategoryDetailPresenter(override val view: CategoryDetailContract.View,
     }
 
     override fun onSiteClicked(siteLite: SiteLite) {
-        view.goToSiteScreen(siteLite)
+        view.goToSiteScreen(category, siteLite)
     }
 
     override fun onErrorDismissed(id: Int) {

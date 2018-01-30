@@ -1,5 +1,6 @@
 package com.flatlander.flatlander.site
 
+import android.support.annotation.StringRes
 import com.flatlander.flatlander.base.BaseContract
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
@@ -12,6 +13,10 @@ interface SiteContract {
 
     interface Interactor {
         fun getSite(siteId: String): Single<Site>
+
+        fun isSiteFavorite(site: Site): Boolean
+        fun favoriteSite(site: Site): Single<Boolean>
+        fun unfavoriteSite(site: Site): Single<Boolean>
     }
 
     interface View : BaseContract.View {
@@ -26,6 +31,8 @@ interface SiteContract {
         fun setHeaderDescription(description: String)
 
         fun setFavorite(isFavorite : Boolean)
+
+        fun showSnackbar(@StringRes message: Int)
     }
 
     interface Presenter : BaseContract.Presenter<View> {

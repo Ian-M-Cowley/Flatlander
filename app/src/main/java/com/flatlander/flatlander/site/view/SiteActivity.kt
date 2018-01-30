@@ -2,9 +2,12 @@ package com.flatlander.flatlander.site.view
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -16,6 +19,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.base.BaseContractActivity
+import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
 import com.flatlander.flatlander.site.SiteContract
@@ -40,7 +44,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     lateinit var presenter : SiteContract.Presenter
 
-    lateinit var siteItemRecyclerAdapter : SiteItemRecyclerAdapter
+    private lateinit var siteItemRecyclerAdapter : SiteItemRecyclerAdapter
 
     override fun getLayoutResourceId(): Int {
         return R.layout.activity_site
@@ -48,10 +52,12 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     companion object {
         private const val EXTRA_SITE_LITE = "siteLite"
+        private const val EXTRA_CATEGORY = "category"
 
-        fun newIntent(caller : Context, siteLite: SiteLite) : Intent {
+        fun newIntent(caller : Context, category: Category, siteLite: SiteLite) : Intent {
             val intent = Intent(caller, SiteActivity::class.java)
             intent.putExtra(EXTRA_SITE_LITE, siteLite)
+            intent.putExtra(EXTRA_CATEGORY, category)
             return intent
         }
     }
@@ -61,6 +67,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         ButterKnife.bind(this)
 
         val siteLite = intent.getSerializableExtra(EXTRA_SITE_LITE) as SiteLite
+        val category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -71,6 +78,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
+        favoriteButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor(category.backgroundColor))
 
         presenter.onViewAdded()
     }
@@ -107,7 +115,15 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun setFavorite(isFavorite: Boolean) {
+        if (isFavorite) {
+            favoriteButton.setImageResource(R.drawable.ic_heart_white_24dp)
+        } else {
+            favoriteButton.setImageResource(R.drawable.ic_heart_outline_white_24dp)
+        }
+    }
 
+    override fun showSnackbar(@StringRes message: Int) {
+        Snackbar.make(favoriteButton, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onErrorDismissed(id: Int) {

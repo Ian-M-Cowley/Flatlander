@@ -16,7 +16,7 @@ interface CategoryDetailContract {
     }
 
     interface View : BaseContract.View {
-        fun goToSiteScreen(siteLite: SiteLite)
+        fun goToSiteScreen(category: Category, siteLite: SiteLite)
 
         fun setSites(sites: List<SiteLite>)
         fun setHeaderColor(@ColorInt color: Int)

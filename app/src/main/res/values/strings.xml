@@ -8,6 +8,12 @@
     <string name="category_favorites">Favorites</string>
     <string name="categories_error_load">Error loading categories</string>
 
+    <!-- SITE -->
+    <string name="sites_favorite">Added to Favorites</string>
+    <string name="sites_unfavorite">Removed from Favorites</string>
+    <string name="sites_error_favorite">Failed to add to Favorites</string>
+    <string name="sites_error_unfavorite">Failed to remove from Favorites</string>
+
     <!-- GENERIC STRINGS -->
     <string name="loading">Loading…</string>
     <string name="ok">OK</string>
