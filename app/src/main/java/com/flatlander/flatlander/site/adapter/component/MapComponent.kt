@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapComponent(itemView: View?) : BaseComponent(itemView) {
 
     @BindView(R.id.map) lateinit var mapView : MapView
+    @BindView(R.id.touch_shield) lateinit var touchShield: View
 
     init {
         ButterKnife.bind(this, itemView!!)

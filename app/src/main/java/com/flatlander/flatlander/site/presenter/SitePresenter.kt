@@ -4,6 +4,7 @@ import android.util.Log
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.SiteLite
+import com.flatlander.flatlander.model.siteitem.MapSiteItem
 import com.flatlander.flatlander.model.siteitem.TextSiteItem
 import com.flatlander.flatlander.site.SiteContract
 import io.reactivex.Single
@@ -83,6 +84,10 @@ class SitePresenter(override val view: SiteContract.View,
                         view.showSnackbar(R.string.sites_error_unfavorite)
                     }
                 }))
+    }
+
+    override fun onMapItemSelected(mapSiteItem: MapSiteItem) {
+        view.goToMapScreen(mapSiteItem)
     }
 
     override fun onErrorDismissed(id: Int) {

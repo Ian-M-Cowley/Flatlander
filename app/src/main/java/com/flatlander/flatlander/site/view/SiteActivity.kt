@@ -18,9 +18,11 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.base.BaseContractActivity
+import com.flatlander.flatlander.map.view.MapActivity
 import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
+import com.flatlander.flatlander.model.siteitem.MapSiteItem
 import com.flatlander.flatlander.site.SiteContract
 import com.flatlander.flatlander.site.adapter.SiteItemRecyclerAdapter
 import com.flatlander.flatlander.site.interactor.SiteInteractor
@@ -32,30 +34,35 @@ import com.flatlander.flatlander.utils.loadImage
  */
 class SiteActivity : BaseContractActivity(), SiteContract.View {
 
-    @BindView(R.id.toolbar) lateinit var toolbar : Toolbar
-    @BindView(R.id.image_site) lateinit var siteImage : ImageView
-    @BindView(R.id.text_site_name) lateinit var siteName : TextView
-    @BindView(R.id.recycler_site_items) lateinit var recyclerView : RecyclerView
-    @BindView(R.id.fab_favorite) lateinit var favoriteButton : FloatingActionButton
+    @BindView(R.id.toolbar)
+    lateinit var toolbar: Toolbar
+    @BindView(R.id.image_site)
+    lateinit var siteImage: ImageView
+    @BindView(R.id.text_site_name)
+    lateinit var siteName: TextView
+    @BindView(R.id.recycler_site_items)
+    lateinit var recyclerView: RecyclerView
+    @BindView(R.id.fab_favorite)
+    lateinit var favoriteButton: FloatingActionButton
 
-    lateinit var presenter : SiteContract.Presenter
+    lateinit var presenter: SiteContract.Presenter
 
-    private lateinit var siteItemRecyclerAdapter : SiteItemRecyclerAdapter
-
-    override fun getLayoutResourceId(): Int {
-        return R.layout.activity_site
-    }
+    private lateinit var siteItemRecyclerAdapter: SiteItemRecyclerAdapter
 
     companion object {
         private const val EXTRA_SITE_LITE = "siteLite"
         private const val EXTRA_CATEGORY = "category"
 
-        fun newIntent(caller : Context, category: Category, siteLite: SiteLite) : Intent {
+        fun newIntent(caller: Context, category: Category, siteLite: SiteLite): Intent {
             val intent = Intent(caller, SiteActivity::class.java)
             intent.putExtra(EXTRA_SITE_LITE, siteLite)
             intent.putExtra(EXTRA_CATEGORY, category)
             return intent
         }
+    }
+
+    override fun getLayoutResourceId(): Int {
+        return R.layout.activity_site
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,13 +87,17 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun goToMapScreen(mapSiteItem: MapSiteItem) {
+        startActivity(MapActivity.newIntent(this, mapSiteItem))
     }
 
     override fun setSiteName(name: String) {
@@ -98,7 +109,11 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun setSiteItems(siteItems: List<BaseSiteItem>) {
-        siteItemRecyclerAdapter = SiteItemRecyclerAdapter(this, siteItems)
+        siteItemRecyclerAdapter = SiteItemRecyclerAdapter(this, siteItems, object : SiteItemRecyclerAdapter.Listener {
+            override fun onMapItemSelected(mapSiteItem: MapSiteItem) {
+                presenter.onMapItemSelected(mapSiteItem)
+            }
+        })
         recyclerView.adapter = siteItemRecyclerAdapter
     }
 
