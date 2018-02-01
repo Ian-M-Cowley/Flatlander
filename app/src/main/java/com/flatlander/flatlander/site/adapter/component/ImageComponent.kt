@@ -1,6 +1,5 @@
 package com.flatlander.flatlander.site.adapter.component
 
-import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
@@ -24,6 +23,6 @@ class ImageComponent(itemView: View?) : BaseComponent(itemView) {
     override fun bind(siteItem: BaseSiteItem) {
         val imageSiteItem = siteItem as ImageSiteItem
 
-        itemImage.loadImage(imageSiteItem.imageUrl, Color.WHITE)
+        itemImage.loadImage(imageSiteItem.imageUrl, itemView.context.resources.getColor(R.color.creamyWhite))
     }
 }

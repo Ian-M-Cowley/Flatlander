@@ -111,6 +111,7 @@ class MapActivity : BaseContractActivity(), MapContract.View {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
             map.uiSettings.setAllGesturesEnabled(true)
             map.uiSettings.isMapToolbarEnabled = false
+            map.uiSettings.isCompassEnabled = false
 
             val hasLocationPermission = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)

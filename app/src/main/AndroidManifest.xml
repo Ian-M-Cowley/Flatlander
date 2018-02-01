@@ -23,19 +23,23 @@
         </activity>
         <activity
             android:name=".categories.list.view.CategoriesActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait">
         </activity>
         <activity
             android:name=".categories.detail.view.CategoryDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait">
         </activity>
         <activity
             android:name=".site.view.SiteActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait">
         </activity>
         <activity
             android:name=".map.view.MapActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait">
         </activity>
 
 

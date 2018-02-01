@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/brownBlack"
     android:fitsSystemWindows="true"
     tools:context=".site.view.SiteActivity">
 
@@ -24,5 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_heart_outline_white_24dp"
+        app:backgroundTint="@color/favoritesYellow"
         android:layout_margin="16dp"/>
 </android.support.design.widget.CoordinatorLayout>

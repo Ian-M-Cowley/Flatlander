@@ -2,8 +2,6 @@ package com.flatlander.flatlander.site.view
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
@@ -81,7 +79,6 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
-        favoriteButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor(category.backgroundColor))
 
         presenter.onViewAdded()
     }
@@ -105,7 +102,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun loadSiteImage(url: String) {
-        siteImage.loadImage(url, Color.WHITE)
+        siteImage.loadImage(url, resources.getColor(R.color.creamyWhite))
     }
 
     override fun setSiteItems(siteItems: List<BaseSiteItem>) {
