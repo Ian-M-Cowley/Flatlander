@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context=".map.view.MapActivity">
 
@@ -12,5 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:apiKey="@string/google_maps_key"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/googleMapsBlue"
+        android:visibility="gone"/>
 
 </FrameLayout>

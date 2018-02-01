@@ -14,13 +14,14 @@ class MapPresenter(override val view: MapContract.View,
     override fun onViewAdded() {
         view.setLocation(mapSiteItem.name,
                 LatLng(mapSiteItem.lat.toDouble(), mapSiteItem.long.toDouble()))
+        view.showNavigationFab(true)
     }
 
     override fun onViewRemoved() {
     }
 
     override fun onNavigateClicked() {
-
+        view.goToGoogleMaps(mapSiteItem, LatLng(mapSiteItem.lat.toDouble(), mapSiteItem.long.toDouble()))
     }
 
     override fun onErrorDismissed(id: Int) {

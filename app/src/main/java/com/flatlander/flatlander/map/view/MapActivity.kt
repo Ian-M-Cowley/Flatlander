@@ -5,7 +5,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
@@ -28,7 +30,10 @@ import com.google.android.gms.maps.model.MarkerOptions
  */
 class MapActivity : BaseContractActivity(), MapContract.View {
 
-    @BindView(R.id.map) lateinit var mapView: MapView
+    @BindView(R.id.map)
+    lateinit var mapView: MapView
+    @BindView(R.id.fab_navigation)
+    lateinit var navigationFab: FloatingActionButton
 
     lateinit var presenter: MapContract.Presenter
     lateinit var map: GoogleMap
@@ -55,6 +60,8 @@ class MapActivity : BaseContractActivity(), MapContract.View {
         mapView.onCreate(savedInstanceState)
 
         val mapSiteItem = intent.getSerializableExtra(EXTRA_MAP_SITE_ITEM) as MapSiteItem
+
+        navigationFab.setOnClickListener({ presenter.onNavigateClicked() })
 
         presenter = MapPresenter(this, MapInteractor(), mapSiteItem)
         presenter.onViewAdded()
@@ -90,12 +97,20 @@ class MapActivity : BaseContractActivity(), MapContract.View {
         super.onLowMemory()
     }
 
+    override fun goToGoogleMaps(mapSiteItem: MapSiteItem, location: LatLng) {
+        val intentUrl = "https://www.google.com/maps/dir/?api=1&destination=${mapSiteItem.name}&destination_place_id=${mapSiteItem.googlePlaceId}"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(intentUrl)
+        startActivity(intent)
+    }
+
     override fun setLocation(name: String, location: LatLng) {
         mapView.getMapAsync({
             map = it
             map.addMarker(MarkerOptions().position(location).title(name)).showInfoWindow()
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 11.0f))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
             map.uiSettings.setAllGesturesEnabled(true)
+            map.uiSettings.isMapToolbarEnabled = false
 
             val hasLocationPermission = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -105,6 +120,14 @@ class MapActivity : BaseContractActivity(), MapContract.View {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
             }
         })
+    }
+
+    override fun showNavigationFab(show: Boolean) {
+        if (show) {
+            navigationFab.show()
+        } else {
+            navigationFab.hide()
+        }
     }
 
     @SuppressLint("MissingPermission")
