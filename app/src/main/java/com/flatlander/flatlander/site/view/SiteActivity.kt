@@ -125,9 +125,9 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     override fun setFavorite(isFavorite: Boolean) {
         if (isFavorite) {
-            favoriteButton.setImageResource(R.drawable.ic_heart_white_24dp)
+            favoriteButton.setImageResource(R.drawable.ic_heart_creamy_white_24dp)
         } else {
-            favoriteButton.setImageResource(R.drawable.ic_heart_outline_white_24dp)
+            favoriteButton.setImageResource(R.drawable.ic_heart_outline_creamy_white_24dp)
         }
     }
 

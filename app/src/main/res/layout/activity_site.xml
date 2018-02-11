@@ -29,6 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_heart_outline_white_24dp"
+        android:src="@drawable/ic_heart_outline_creamy_white_24dp"
         app:backgroundTint="@color/favoritesYellow"/>
 </android.support.design.widget.CoordinatorLayout>
