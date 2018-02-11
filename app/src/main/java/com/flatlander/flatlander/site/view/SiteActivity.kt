@@ -26,6 +26,7 @@ import com.flatlander.flatlander.site.adapter.SiteItemRecyclerAdapter
 import com.flatlander.flatlander.site.interactor.SiteInteractor
 import com.flatlander.flatlander.site.presenter.SitePresenter
 import com.flatlander.flatlander.utils.loadImage
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by iancowley on 9/10/17.
@@ -81,6 +82,10 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
 
         presenter.onViewAdded()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

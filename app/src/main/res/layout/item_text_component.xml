@@ -5,22 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/creamyWhite"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/text_title"
         style="@style/TextTitle"
+        fontPath="fonts/highway-gothic-wide.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:textAllCaps="true"
+        android:layout_marginBottom="16dp"
+        tools:ignore="MissingPrefix"
         tools:text="Mckinney Falls"/>
 
     <TextView
         android:id="@+id/text_description"
         style="@style/TextDescription"
+        fontPath="fonts/serif-pro-regular.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:lineSpacingExtra="6dp"
+        tools:ignore="MissingPrefix"
         tools:text="Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, it\'s a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge. Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, its a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge."/>
 
 </LinearLayout>

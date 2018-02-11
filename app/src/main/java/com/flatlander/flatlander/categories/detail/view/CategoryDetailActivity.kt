@@ -20,6 +20,7 @@ import com.flatlander.flatlander.categories.detail.presenter.CategoryDetailPrese
 import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.site.view.SiteActivity
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
  * Created by iancowley on 8/24/17.
@@ -27,6 +28,7 @@ import com.flatlander.flatlander.site.view.SiteActivity
 class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.View {
 
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
+    @BindView(R.id.background) lateinit var background: View
     @BindView(R.id.header_bar) lateinit var headerView: View
     @BindView(R.id.recycler_sites) lateinit var sitesRecycler: RecyclerView
 
@@ -69,6 +71,10 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         presenter.onViewRemoved()
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when(item?.itemId) {
             android.R.id.home -> {
@@ -93,6 +99,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun setHeaderColor(@ColorInt color: Int) {
+        background.setBackgroundColor(color)
         headerView.setBackgroundColor(color)
     }
 
