@@ -2,6 +2,7 @@ package com.flatlander.flatlander.site.view
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.TypedValue
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +29,8 @@ import com.flatlander.flatlander.site.interactor.SiteInteractor
 import com.flatlander.flatlander.site.presenter.SitePresenter
 import com.flatlander.flatlander.utils.loadImage
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils
+
 
 /**
  * Created by iancowley on 9/10/17.
@@ -128,7 +132,15 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun showSnackbar(@StringRes message: Int) {
-        Snackbar.make(favoriteButton, message, Snackbar.LENGTH_SHORT).show()
+        val snackbar = Snackbar.make(favoriteButton, message, Snackbar.LENGTH_SHORT)
+        snackbar.view.setBackgroundColor(resources.getColor(R.color.favoritesYellow))
+        val text = snackbar.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+
+        CalligraphyUtils.applyFontToTextView(this, text, "fonts/highway-gothic-wide.ttf")
+        text.setTextColor(Color.WHITE)
+        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+
+        snackbar.show()
     }
 
     override fun onErrorDismissed(id: Int) {
