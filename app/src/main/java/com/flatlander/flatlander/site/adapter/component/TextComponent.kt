@@ -1,5 +1,7 @@
 package com.flatlander.flatlander.site.adapter.component
 
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.view.View
 import android.widget.TextView
 import butterknife.BindView
@@ -28,6 +30,10 @@ class TextComponent(itemView: View?) : BaseComponent(itemView) {
             titleText.visibility = View.GONE
         } else {
             titleText.visibility = View.VISIBLE
+        }
+
+        if (SDK_INT >= LOLLIPOP) {
+            titleText.letterSpacing = 0.1f
         }
     }
 }

@@ -3,6 +3,8 @@ package com.flatlander.flatlander.site.view
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
@@ -72,6 +74,10 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
 
+        if (SDK_INT >= LOLLIPOP) {
+            siteName.letterSpacing = 0.25f
+        }
+
         val siteLite = intent.getSerializableExtra(EXTRA_SITE_LITE) as SiteLite
         val category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
 
@@ -139,6 +145,10 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         CalligraphyUtils.applyFontToTextView(this, text, "fonts/highway-gothic-wide.ttf")
         text.setTextColor(Color.WHITE)
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+
+        if (SDK_INT >= LOLLIPOP) {
+            text.letterSpacing = 0.1f
+        }
 
         snackbar.show()
     }
