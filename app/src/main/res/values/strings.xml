@@ -7,6 +7,7 @@
     <string name="category_swimming">Swimming</string>
     <string name="category_favorites">Favorites</string>
     <string name="categories_error_load">Error loading categories</string>
+    <string name="categories_favorites_empty_message">Favorite parks\nto view them here</string>
 
     <!-- SITE -->
     <string name="sites_favorite">ADDED TO FAVORITES</string>

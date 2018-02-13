@@ -20,9 +20,11 @@ interface CategoryDetailContract {
 
         fun setSites(sites: List<SiteLite>)
         fun setHeaderColor(@ColorInt color: Int)
+        fun showFavoritesEmptyState(show: Boolean)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
+        fun onViewReturnedTo()
         fun onSiteClicked(site : SiteLite)
     }
 }

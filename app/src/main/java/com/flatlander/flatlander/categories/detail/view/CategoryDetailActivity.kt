@@ -2,6 +2,8 @@ package com.flatlander.flatlander.categories.detail.view
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +11,9 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
@@ -31,13 +36,16 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     @BindView(R.id.background) lateinit var background: View
     @BindView(R.id.header_bar) lateinit var headerView: View
     @BindView(R.id.recycler_sites) lateinit var sitesRecycler: RecyclerView
+    @BindView(R.id.layout_favorites_empty) lateinit var favoritesEmptyLayout: View
+    @BindView(R.id.text_favorites_empty_message) lateinit var favoritesEmptyMessage: TextView
 
     lateinit var presenter: CategoryDetailContract.Presenter
-    lateinit var siteRecyclerAdapter: SiteRecyclerAdapter
+    private lateinit var siteRecyclerAdapter: SiteRecyclerAdapter
 
     companion object {
 
-        private val EXTRA_CATEGORY = "category"
+        private const val EXTRA_CATEGORY = "category"
+        private const val REQUEST_SITE = 123
 
         fun newIntent(caller : Context, category: Category) : Intent {
             val intent = Intent(caller, CategoryDetailActivity::class.java)
@@ -62,6 +70,10 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
 
         sitesRecycler.layoutManager = LinearLayoutManager(this)
 
+        if (SDK_INT >= LOLLIPOP) {
+            favoritesEmptyMessage.letterSpacing = 0.1f
+        }
+
         presenter = CategoryDetailPresenter(this, CategoryDetailInteractor(), category)
         presenter.onViewAdded()
     }
@@ -85,8 +97,15 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_SITE) {
+            presenter.onViewReturnedTo()
+        }
+    }
+
     override fun goToSiteScreen(category: Category, siteLite: SiteLite) {
-        startActivity(SiteActivity.newIntent(this, category, siteLite))
+        startActivityForResult(SiteActivity.newIntent(this, category, siteLite), REQUEST_SITE)
     }
 
     override fun setSites(sites: List<SiteLite>) {
@@ -101,6 +120,14 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     override fun setHeaderColor(@ColorInt color: Int) {
         background.setBackgroundColor(color)
         headerView.setBackgroundColor(color)
+    }
+
+    override fun showFavoritesEmptyState(show: Boolean) {
+        if (show) {
+            favoritesEmptyLayout.visibility = VISIBLE
+        } else {
+            favoritesEmptyLayout.visibility = GONE
+        }
     }
 
     override fun onErrorDismissed(id: Int) {

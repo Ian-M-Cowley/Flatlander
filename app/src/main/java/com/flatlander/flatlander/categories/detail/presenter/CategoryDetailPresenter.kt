@@ -23,24 +23,35 @@ class CategoryDetailPresenter(override val view: CategoryDetailContract.View,
 
     override fun onViewAdded() {
         view.setHeaderColor(Color.parseColor(category.backgroundColor))
-        view.showProgress(R.string.loading)
-        compositeDisposable.add(interactor.getSitesForCategory(category)
-                .doOnSuccess { view.hideProgress() }
-                .doOnError { view.hideProgress() }
-                .subscribe({
-                    view.setSites(it)
-                }, {
-                    Log.d(TAG, it.message)
-                    view.showError(ERROR_LOADING, R.string.categories_error_load)
-                }))
+        loadSites()
     }
 
     override fun onViewRemoved() {
         compositeDisposable.dispose()
     }
 
+    override fun onViewReturnedTo() {
+        if (category.id == "favorites") {
+            loadSites()
+        }
+    }
+
     override fun onSiteClicked(siteLite: SiteLite) {
         view.goToSiteScreen(category, siteLite)
+    }
+
+    private fun loadSites() {
+        view.showProgress(R.string.loading)
+        compositeDisposable.add(interactor.getSitesForCategory(category)
+                .doOnSuccess { view.hideProgress() }
+                .doOnError { view.hideProgress() }
+                .subscribe({
+                    view.setSites(it)
+                    view.showFavoritesEmptyState(category.id == "favorites" && it.isEmpty())
+                }, {
+                    Log.d(TAG, it.message)
+                    view.showError(ERROR_LOADING, R.string.categories_error_load)
+                }))
     }
 
     override fun onErrorDismissed(id: Int) {
