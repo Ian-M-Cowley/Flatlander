@@ -90,6 +90,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
+        favoriteButton.hide()
 
         presenter.onViewAdded()
     }
@@ -129,12 +130,17 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         recyclerView.adapter = siteItemRecyclerAdapter
     }
 
+    override fun notifySiteItemsChanged() {
+        siteItemRecyclerAdapter.notifyDataSetChanged()
+    }
+
     override fun setFavorite(isFavorite: Boolean) {
         if (isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_heart_creamy_white_24dp)
         } else {
             favoriteButton.setImageResource(R.drawable.ic_heart_outline_creamy_white_24dp)
         }
+        favoriteButton.show()
     }
 
     override fun showSnackbar(@StringRes message: Int) {

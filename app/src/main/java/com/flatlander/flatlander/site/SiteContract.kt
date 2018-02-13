@@ -26,6 +26,8 @@ interface SiteContract {
 
         fun setSiteItems(siteItems: List<BaseSiteItem>)
 
+        fun notifySiteItemsChanged()
+
         fun setSiteName(name: String)
 
         fun loadSiteImage(url: String)
