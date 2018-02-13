@@ -36,10 +36,7 @@ class SitePresenter(override val view: SiteContract.View,
         view.setSiteName(siteLite.name)
         view.loadSiteImage(siteLite.imageUrl)
 
-        view.showProgress(R.string.loading)
         compositeDisposable.add(interactor.getSite(siteLite.id)
-                .doOnSuccess { view.hideProgress() }
-                .doOnError { view.hideProgress() }
                 .subscribe({
                     site = it
 
