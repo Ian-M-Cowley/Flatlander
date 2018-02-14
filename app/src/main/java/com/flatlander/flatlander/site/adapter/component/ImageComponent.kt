@@ -7,7 +7,7 @@ import butterknife.ButterKnife
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
 import com.flatlander.flatlander.model.siteitem.ImageSiteItem
-import com.flatlander.flatlander.utils.loadImage
+import com.squareup.picasso.Picasso
 
 /**
  * Created by iancowley on 9/13/17.
@@ -23,6 +23,9 @@ class ImageComponent(itemView: View?) : BaseComponent(itemView) {
     override fun bind(siteItem: BaseSiteItem) {
         val imageSiteItem = siteItem as ImageSiteItem
 
-        itemImage.loadImage(imageSiteItem.imageUrl, itemView.context.resources.getColor(R.color.creamyWhite))
+        Picasso.with(itemImage.context)
+                .load(imageSiteItem.imageUrl)
+                .placeholder(R.drawable.ic_loading_static)
+                .into(itemImage)
     }
 }
