@@ -20,6 +20,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.analytics.*
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.map.view.MapActivity
 import com.flatlander.flatlander.model.Category
@@ -31,6 +32,7 @@ import com.flatlander.flatlander.site.adapter.SiteItemRecyclerAdapter
 import com.flatlander.flatlander.site.interactor.SiteInteractor
 import com.flatlander.flatlander.site.presenter.SitePresenter
 import com.flatlander.flatlander.utils.loadImage
+import com.google.firebase.analytics.FirebaseAnalytics
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils
 
@@ -40,20 +42,17 @@ import uk.co.chrisjenx.calligraphy.CalligraphyUtils
  */
 class SiteActivity : BaseContractActivity(), SiteContract.View {
 
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-    @BindView(R.id.image_site)
-    lateinit var siteImage: ImageView
-    @BindView(R.id.text_site_name)
-    lateinit var siteName: TextView
-    @BindView(R.id.recycler_site_items)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.fab_favorite)
-    lateinit var favoriteButton: FloatingActionButton
+    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
+    @BindView(R.id.image_site)  lateinit var siteImage: ImageView
+    @BindView(R.id.text_site_name) lateinit var siteName: TextView
+    @BindView(R.id.recycler_site_items) lateinit var recyclerView: RecyclerView
+    @BindView(R.id.fab_favorite) lateinit var favoriteButton: FloatingActionButton
 
     lateinit var presenter: SiteContract.Presenter
 
     private lateinit var siteItemRecyclerAdapter: SiteItemRecyclerAdapter
+    private var isFavorite: Boolean = false
+    private val analyticsParams = Bundle()
 
     companion object {
         private const val EXTRA_SITE_LITE = "siteLite"
@@ -82,6 +81,9 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         val siteLite = intent.getSerializableExtra(EXTRA_SITE_LITE) as SiteLite
         val category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
 
+        analyticsParams.putString(PARAM_SITE, siteLite.name)
+        analyticsParams.putString(PARAM_CATEGORY, category.name)
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -90,10 +92,23 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        favoriteButton.setOnClickListener { presenter.onFavoriteClicked() }
+        favoriteButton.setOnClickListener {
+            val event = if (isFavorite) {
+                EVENT_SITE_UN_FAVORITED
+            } else {
+                EVENT_SITE_FAVORITED
+            }
+            FirebaseAnalytics.getInstance(this).logEvent(event, analyticsParams)
+
+            presenter.onFavoriteClicked()
+        }
         favoriteButton.hide()
 
         presenter.onViewAdded()
+
+        if (savedInstanceState == null) {
+            FirebaseAnalytics.getInstance(this).logEvent(EVENT_SITE_VIEW, analyticsParams)
+        }
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -111,7 +126,8 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun goToMapScreen(mapSiteItem: MapSiteItem) {
-        startActivity(MapActivity.newIntent(this, mapSiteItem))
+        FirebaseAnalytics.getInstance(this).logEvent(EVENT_MAP_VIEW, analyticsParams)
+        startActivity(MapActivity.newIntent(this, mapSiteItem, analyticsParams))
     }
 
     override fun setSiteName(name: String) {
@@ -136,6 +152,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
     }
 
     override fun setFavorite(isFavorite: Boolean) {
+        this.isFavorite = isFavorite
         if (isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_heart_creamy_white_24dp)
         } else {

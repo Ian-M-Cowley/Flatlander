@@ -18,6 +18,8 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.analytics.EVENT_CATEGORY_VIEW
+import com.flatlander.flatlander.analytics.PARAM_CATEGORY
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.categories.detail.CategoryDetailContract
 import com.flatlander.flatlander.categories.detail.adapter.SiteRecyclerAdapter
@@ -26,6 +28,7 @@ import com.flatlander.flatlander.categories.detail.presenter.CategoryDetailPrese
 import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.site.view.SiteActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 /**
@@ -77,6 +80,12 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
 
         presenter = CategoryDetailPresenter(this, CategoryDetailInteractor(), category)
         presenter.onViewAdded()
+
+        if (savedInstanceState == null) {
+            val params = Bundle()
+            params.putString(PARAM_CATEGORY, category.name)
+            FirebaseAnalytics.getInstance(this).logEvent(EVENT_CATEGORY_VIEW, params)
+        }
     }
 
     override fun onDestroy() {

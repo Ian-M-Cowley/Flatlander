@@ -10,6 +10,7 @@ import android.util.DisplayMetrics
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.analytics.EVENT_MENU_VIEW
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.categories.detail.view.CategoryDetailActivity
 import com.flatlander.flatlander.categories.list.CategoriesContract
@@ -18,7 +19,7 @@ import com.flatlander.flatlander.categories.list.adapter.CategoriesRecyclerAdapt
 import com.flatlander.flatlander.categories.list.interactor.CategoriesInteractor
 import com.flatlander.flatlander.categories.list.presenter.CategoriesPresenter
 import com.flatlander.flatlander.model.Category
-
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
@@ -46,6 +47,10 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
 
         presenter = CategoriesPresenter(this, CategoriesInteractor())
         presenter.onViewAdded()
+
+        if (savedInstanceState == null) {
+            FirebaseAnalytics.getInstance(this).logEvent(EVENT_MENU_VIEW, null)
+        }
     }
 
     override fun onDestroy() {

@@ -15,6 +15,7 @@ import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.analytics.EVENT_SITE_NAVIGATED
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.map.MapContract
 import com.flatlander.flatlander.map.interactor.MapInteractor
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.analytics.FirebaseAnalytics
 
 /**
  * Created by iancowley on 1/30/18.
@@ -38,14 +40,17 @@ class MapActivity : BaseContractActivity(), MapContract.View {
 
     lateinit var presenter: MapContract.Presenter
     lateinit var map: GoogleMap
+    lateinit var analyticsParams: Bundle
 
     companion object {
         private const val EXTRA_MAP_SITE_ITEM = "mapSiteItem"
+        private const val EXTRA_ANALYTICS_PARAMS = "analyticsParams"
         private const val REQUEST_LOCATION_PERMISSION = 213
 
-        fun newIntent(caller: Context, mapSiteItem: MapSiteItem): Intent {
+        fun newIntent(caller: Context, mapSiteItem: MapSiteItem, analyticsParams: Bundle): Intent {
             val intent = Intent(caller, MapActivity::class.java)
             intent.putExtra(EXTRA_MAP_SITE_ITEM, mapSiteItem)
+            intent.putExtra(EXTRA_ANALYTICS_PARAMS, analyticsParams)
             return intent
         }
     }
@@ -61,8 +66,12 @@ class MapActivity : BaseContractActivity(), MapContract.View {
         mapView.onCreate(savedInstanceState)
 
         val mapSiteItem = intent.getSerializableExtra(EXTRA_MAP_SITE_ITEM) as MapSiteItem
+        analyticsParams = intent.getBundleExtra(EXTRA_ANALYTICS_PARAMS)
 
-        navigationFab.setOnClickListener({ presenter.onNavigateClicked() })
+        navigationFab.setOnClickListener({
+            FirebaseAnalytics.getInstance(this).logEvent(EVENT_SITE_NAVIGATED, analyticsParams)
+            presenter.onNavigateClicked()
+        })
 
         presenter = MapPresenter(this, MapInteractor(), mapSiteItem)
         presenter.onViewAdded()
