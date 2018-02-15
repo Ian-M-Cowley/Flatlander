@@ -75,7 +75,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         ButterKnife.bind(this)
 
         if (SDK_INT >= LOLLIPOP) {
-            siteName.letterSpacing = 0.25f
+            siteName.letterSpacing = 0.1f
         }
 
         val siteLite = intent.getSerializableExtra(EXTRA_SITE_LITE) as SiteLite

@@ -35,7 +35,7 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
     private fun bind(viewHolder: ViewHolder, site: SiteLite) {
         viewHolder.siteNameText.text = site.name
         if (SDK_INT >= LOLLIPOP) {
-            viewHolder.siteNameText.letterSpacing = 0.25f
+            viewHolder.siteNameText.letterSpacing = 0.1f
         }
         viewHolder.siteImage.loadImage(site.imageUrl, viewHolder.itemView.context.resources.getColor(R.color.brownBlack))
     }
