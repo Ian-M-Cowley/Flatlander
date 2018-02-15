@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -66,7 +67,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         }
     }
 
-    override fun getLayoutResourceId(): Int {
+    @LayoutRes override fun getLayoutResourceId(): Int {
         return R.layout.activity_site
     }
 

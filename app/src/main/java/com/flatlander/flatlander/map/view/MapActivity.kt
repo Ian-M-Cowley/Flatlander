@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -49,7 +50,7 @@ class MapActivity : BaseContractActivity(), MapContract.View {
         }
     }
 
-    override fun getLayoutResourceId(): Int {
+    @LayoutRes override fun getLayoutResourceId(): Int {
         return R.layout.activity_map
     }
 

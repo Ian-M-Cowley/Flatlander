@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -11,7 +11,8 @@ buildscript {
     ext.constraint_layout_version = '1.0.2'
     ext.picasso_version = '2.5.2'
     ext.gson_version = '2.8.0'
-    ext.calligraphy_version='2.3.0'
+    ext.calligraphy_version = '2.3.0'
+    ext.crashlytics_version = '2.9.0'
 }
 
 android {
@@ -48,6 +49,11 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.google.firebase:firebase-database:$firebase_play_service_version"
+    compile "com.google.firebase:firebase-core:$firebase_play_service_version"
+
+    compile("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
+        transitive = true
+    }
 
     compile "com.squareup.picasso:picasso:$picasso_version"
     compile "com.google.code.gson:gson:$gson_version"

@@ -6,6 +6,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.annotation.ColorInt
+import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -54,7 +55,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         }
     }
 
-    override fun getLayoutResourceId(): Int {
+    @LayoutRes override fun getLayoutResourceId(): Int {
         return R.layout.activity_category_detail
     }
 
