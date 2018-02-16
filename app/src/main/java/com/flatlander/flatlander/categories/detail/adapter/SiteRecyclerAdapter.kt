@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.data.LocalFavoritesRepository
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.utils.loadImage
 import kotlinx.android.synthetic.main.item_site.view.*
@@ -38,6 +39,10 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
             viewHolder.siteNameText.letterSpacing = 0.1f
         }
         viewHolder.siteImage.loadImage(site.imageUrl, viewHolder.itemView.context.resources.getColor(R.color.brownBlack))
+
+        if (LocalFavoritesRepository.instance.isSiteFavorite(site)) {
+            viewHolder.siteCategoryText.text = site.category
+        }
     }
 
     override fun getItemCount(): Int {
@@ -47,6 +52,7 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val siteImage : ImageView = view.image_site
         val siteNameText : TextView = view.text_site_name
+        val siteCategoryText: TextView = view.text_site_category
     }
 
     interface Listener {
