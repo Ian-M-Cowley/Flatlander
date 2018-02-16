@@ -28,30 +28,30 @@ class LocalFavoritesRepository : FavoritesRepository {
         this.sharedPrefs = context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
     }
 
-    override fun favoriteSite(site: Site): Single<Boolean> {
+    override fun favoriteSite(siteLite: SiteLite): Single<Boolean> {
         val ids = sharedPrefs.getStringSet(PREF_FAVORITE_IDS, mutableSetOf())
-        ids.add(site.id)
+        ids.add(siteLite.getUniqueId())
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_IDS, ids).apply()
 
         val sites = sharedPrefs.getStringSet(PREF_FAVORITE_SITES, mutableSetOf())
-        sites.add(Gson().toJson(site))
+        sites.add(Gson().toJson(siteLite))
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_SITES, sites).apply()
         return Single.just(true)
     }
 
-    override fun unfavoriteSite(site: Site): Single<Boolean> {
+    override fun unfavoriteSite(siteLite: SiteLite): Single<Boolean> {
         val ids = sharedPrefs.getStringSet(PREF_FAVORITE_IDS, mutableSetOf())
-        ids.remove(site.id)
+        ids.remove(siteLite.getUniqueId())
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_IDS, ids).apply()
 
         val sites = sharedPrefs.getStringSet(PREF_FAVORITE_SITES, mutableSetOf())
-        sites.remove(Gson().toJson(site))
+        sites.remove(Gson().toJson(siteLite))
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_SITES, sites).apply()
         return Single.just(true)
     }
 
-    override fun isSiteFavorite(id: String): Boolean {
-        return sharedPrefs.getStringSet(PREF_FAVORITE_IDS, mutableSetOf()).contains(id)
+    override fun isSiteFavorite(siteLite: SiteLite): Boolean {
+        return sharedPrefs.getStringSet(PREF_FAVORITE_IDS, mutableSetOf()).contains(siteLite.getUniqueId())
     }
 
     override fun getFavoriteSites(): Single<List<SiteLite>> {

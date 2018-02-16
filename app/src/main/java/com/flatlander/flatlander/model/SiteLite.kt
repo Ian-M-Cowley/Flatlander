@@ -8,9 +8,21 @@ import java.io.Serializable
  */
 open class SiteLite : Serializable {
     var id: String = ""
+    var category: String = ""
     var name: String = ""
     var imageUrl: String = ""
     var title: String = ""
     var description: String = ""
     var defaultMapSiteItem: MapSiteItem? = null
+
+    fun getUniqueId() : String {
+        return category + id
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is SiteLite) {
+            return getUniqueId() == other.getUniqueId()
+        }
+        return false
+    }
 }

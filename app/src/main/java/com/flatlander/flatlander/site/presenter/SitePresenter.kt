@@ -36,12 +36,12 @@ class SitePresenter(override val view: SiteContract.View,
         view.setSiteName(siteLite.name)
         view.loadSiteImage(siteLite.imageUrl)
 
+        isFavorite = interactor.isSiteFavorite(siteLite)
+        view.setFavorite(isFavorite)
+
         compositeDisposable.add(interactor.getSite(siteLite.id)
                 .subscribe({
                     site = it
-
-                    isFavorite = interactor.isSiteFavorite(site)
-                    view.setFavorite(isFavorite)
 
                     siteItems.addAll(site.siteItems)
                     view.notifySiteItemsChanged()
@@ -58,9 +58,9 @@ class SitePresenter(override val view: SiteContract.View,
     override fun onFavoriteClicked() {
         view.showProgress(R.string.loading)
         val action: Single<Boolean> = if (isFavorite) {
-            interactor.unfavoriteSite(site)
+            interactor.unfavoriteSite(siteLite)
         } else {
-            interactor.favoriteSite(site)
+            interactor.favoriteSite(siteLite)
         }
         compositeDisposable.add(action
                 .doOnSuccess { view.hideProgress() }

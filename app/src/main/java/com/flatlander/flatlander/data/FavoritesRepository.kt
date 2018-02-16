@@ -1,6 +1,5 @@
 package com.flatlander.flatlander.data
 
-import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.SiteLite
 import io.reactivex.Single
 
@@ -9,8 +8,8 @@ import io.reactivex.Single
  */
 interface FavoritesRepository {
 
-    fun favoriteSite(site: Site): Single<Boolean>
-    fun unfavoriteSite(site: Site): Single<Boolean>
-    fun isSiteFavorite(id: String): Boolean
+    fun favoriteSite(siteLite: SiteLite): Single<Boolean>
+    fun unfavoriteSite(siteLite: SiteLite): Single<Boolean>
+    fun isSiteFavorite(siteLite: SiteLite): Boolean
     fun getFavoriteSites(): Single<List<SiteLite>>
 }

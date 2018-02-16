@@ -3,6 +3,7 @@ package com.flatlander.flatlander.site
 import android.support.annotation.StringRes
 import com.flatlander.flatlander.base.BaseContract
 import com.flatlander.flatlander.model.Site
+import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
 import com.flatlander.flatlander.model.siteitem.MapSiteItem
 import io.reactivex.Single
@@ -15,9 +16,9 @@ interface SiteContract {
     interface Interactor {
         fun getSite(siteId: String): Single<Site>
 
-        fun isSiteFavorite(site: Site): Boolean
-        fun favoriteSite(site: Site): Single<Boolean>
-        fun unfavoriteSite(site: Site): Single<Boolean>
+        fun isSiteFavorite(siteLite: SiteLite): Boolean
+        fun favoriteSite(siteLite: SiteLite): Single<Boolean>
+        fun unfavoriteSite(siteLite: SiteLite): Single<Boolean>
     }
 
     interface View : BaseContract.View {
