@@ -88,7 +88,7 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = SitePresenter(this, SiteInteractor(), siteLite)
+        presenter = SitePresenter(this, SiteInteractor(), siteLite, category)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 

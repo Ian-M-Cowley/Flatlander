@@ -2,6 +2,7 @@ package com.flatlander.flatlander.site.presenter
 
 import android.util.Log
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.Site
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.model.siteitem.BaseSiteItem
@@ -16,7 +17,8 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class SitePresenter(override val view: SiteContract.View,
                     val interactor: SiteContract.Interactor,
-                    val siteLite: SiteLite) : SiteContract.Presenter {
+                    val siteLite: SiteLite,
+                    val category: Category) : SiteContract.Presenter {
 
     companion object {
         private const val ERROR_LOADING = 0
@@ -29,7 +31,7 @@ class SitePresenter(override val view: SiteContract.View,
 
     override fun onViewAdded() {
         // Add the header title and description
-        siteItems.add( TextSiteItem("-1", "text", siteLite.title, siteLite.description))
+        siteItems.add( TextSiteItem("-1", "text", 0, 0, 0, siteLite.title, siteLite.description))
         siteLite.defaultMapSiteItem.let { siteItems.add(it!!) }
         view.setSiteItems(siteItems)
 
@@ -43,7 +45,15 @@ class SitePresenter(override val view: SiteContract.View,
                 .subscribe({
                     site = it
 
-                    siteItems.addAll(site.siteItems)
+                    site.siteItems.forEach({
+                        if (siteLite.category == "hiking" && it.hikingRank >= 0) {
+                            siteItems.add(it)
+                        } else if (siteLite.category == "camping" && it.campingRank >= 0) {
+                            siteItems.add(it)
+                        } else if (siteLite.category == "swimming" && it.swimmingRank >= 0) {
+                            siteItems.add(it)
+                        }
+                    })
                     view.notifySiteItemsChanged()
                 }, {
                     Log.d("SitePresenter", it.message)

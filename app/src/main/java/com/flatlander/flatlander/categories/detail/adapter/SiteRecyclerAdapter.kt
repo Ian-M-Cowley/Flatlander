@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.flatlander.flatlander.R
-import com.flatlander.flatlander.data.LocalFavoritesRepository
+import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.utils.loadImage
 import kotlinx.android.synthetic.main.item_site.view.*
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_site.view.*
 /**
  * Created by iancowley on 8/24/17.
  */
-class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val listener: Listener) : RecyclerView.Adapter<SiteRecyclerAdapter.ViewHolder>() {
+class SiteRecyclerAdapter(context: Context, val category: Category, val sites: List<SiteLite>, val listener: Listener) : RecyclerView.Adapter<SiteRecyclerAdapter.ViewHolder>() {
 
     val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -40,7 +40,7 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
         }
         viewHolder.siteImage.loadImage(site.imageUrl, viewHolder.itemView.context.resources.getColor(R.color.brownBlack))
 
-        if (LocalFavoritesRepository.instance.isSiteFavorite(site)) {
+        if (category.id == "favorites") {
             viewHolder.siteCategoryText.text = site.category
         }
     }

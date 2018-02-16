@@ -45,6 +45,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
 
     lateinit var presenter: CategoryDetailContract.Presenter
     private lateinit var siteRecyclerAdapter: SiteRecyclerAdapter
+    private lateinit var category: Category
 
     companion object {
 
@@ -66,7 +67,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
 
-        val category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
+        category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -119,7 +120,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun setSites(sites: List<SiteLite>) {
-        siteRecyclerAdapter = SiteRecyclerAdapter(this, sites, object : SiteRecyclerAdapter.Listener {
+        siteRecyclerAdapter = SiteRecyclerAdapter(this, category, sites, object : SiteRecyclerAdapter.Listener {
             override fun onSiteClicked(site: SiteLite) {
                 presenter.onSiteClicked(site)
             }
