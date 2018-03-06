@@ -1,5 +1,6 @@
 package com.flatlander.flatlander.categories.list.presenter
 
+import com.flatlander.flatlander.BuildConfig
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.categories.list.CategoriesContract
 import com.flatlander.flatlander.model.Category
@@ -13,6 +14,7 @@ class CategoriesPresenter(override val view: CategoriesContract.View,
 
     companion object {
         private const val ERROR_LOADING = 0
+        private const val ERROR_NEED_UPGRADE = 1
     }
 
     val compositeDisposable = CompositeDisposable()
@@ -28,6 +30,14 @@ class CategoriesPresenter(override val view: CategoriesContract.View,
                     view.showError(ERROR_LOADING, R.string.categories_error_load)
                 }))
 
+        compositeDisposable.add(interactor.getMinimumVersion()
+                .subscribe({
+                    if (it > BuildConfig.VERSION_CODE) {
+                        view.showError(ERROR_NEED_UPGRADE, R.string.categories_error_need_upgrade)
+                    }
+                }, {
+                }))
+
     }
 
     override fun onViewRemoved() {
@@ -40,6 +50,9 @@ class CategoriesPresenter(override val view: CategoriesContract.View,
     }
 
     override fun onErrorDismissed(id: Int) {
+        if (id == ERROR_NEED_UPGRADE) {
+            view.close()
+        }
     }
 
     override fun onMessagePositive(id: Int) {

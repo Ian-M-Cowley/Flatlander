@@ -58,6 +58,10 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
         presenter.onViewRemoved()
     }
 
+    override fun close() {
+        finish()
+    }
+
     override fun goToCategoryDetailScreen(category: Category) {
         startActivity(CategoryDetailActivity.newIntent(this, category))
     }
