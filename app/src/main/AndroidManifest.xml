@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".intro.view.IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensorPortrait">
+        </activity>
         <activity
             android:name=".categories.list.view.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar"

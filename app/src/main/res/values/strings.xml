@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Flatlander</string>
 
+    <!-- INTRO -->
+    <string name="intro_uses_location">Flatlander uses\nLocation</string>
+    <string name="intro_spots_near_austin">All spots suggested are\nwithin three hours of <b>Austin</b></string>
+
     <!-- CATEGORIES -->
     <string name="category_hiking">Hiking</string>
     <string name="category_camping">Camping</string>
@@ -21,5 +25,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="dismiss">Dismiss</string>
-
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 </resources>
