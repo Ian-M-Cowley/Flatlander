@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.FrameLayout
 import android.widget.ImageView
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.model.Category
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.main.item_category.view.*
 /**
  * Created by iancowley on 7/31/17.
  */
-class CategoriesRecyclerAdapter(context: Context, val categories: List<Category>, val listener: Listener) : RecyclerView.Adapter<CategoriesRecyclerAdapter.ViewHolder>() {
+class CategoriesRecyclerAdapter(context: Context, val categories: List<Category>, val itemHeight: Int, val listener: Listener) : RecyclerView.Adapter<CategoriesRecyclerAdapter.ViewHolder>() {
 
     val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -32,6 +34,7 @@ class CategoriesRecyclerAdapter(context: Context, val categories: List<Category>
     private fun bind(viewHolder: ViewHolder, category: Category) {
         viewHolder.image.setImageResource(category.imageId)
         viewHolder.image.setBackgroundColor(Color.parseColor(category.backgroundColor))
+        viewHolder.image.layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, itemHeight)
     }
 
     override fun getItemCount(): Int {

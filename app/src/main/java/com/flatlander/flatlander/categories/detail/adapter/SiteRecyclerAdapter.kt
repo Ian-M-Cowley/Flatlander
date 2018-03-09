@@ -1,6 +1,8 @@
 package com.flatlander.flatlander.categories.detail.adapter
 
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.utils.loadImage
 import kotlinx.android.synthetic.main.item_site.view.*
@@ -15,7 +18,7 @@ import kotlinx.android.synthetic.main.item_site.view.*
 /**
  * Created by iancowley on 8/24/17.
  */
-class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val listener: Listener) : RecyclerView.Adapter<SiteRecyclerAdapter.ViewHolder>() {
+class SiteRecyclerAdapter(context: Context, val category: Category, val sites: List<SiteLite>, val listener: Listener) : RecyclerView.Adapter<SiteRecyclerAdapter.ViewHolder>() {
 
     val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -32,7 +35,14 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
 
     private fun bind(viewHolder: ViewHolder, site: SiteLite) {
         viewHolder.siteNameText.text = site.name
-        viewHolder.siteImage.loadImage(site.imageUrl)
+        if (SDK_INT >= LOLLIPOP) {
+            viewHolder.siteNameText.letterSpacing = 0.1f
+        }
+        viewHolder.siteImage.loadImage(site.imageUrl, viewHolder.itemView.context.resources.getColor(R.color.brownBlack))
+
+        if (category.id == "favorites") {
+            viewHolder.siteCategoryText.text = site.category
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,6 +52,7 @@ class SiteRecyclerAdapter(context: Context, val sites: List<SiteLite>, val liste
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val siteImage : ImageView = view.image_site
         val siteNameText : TextView = view.text_site_name
+        val siteCategoryText: TextView = view.text_site_category
     }
 
     interface Listener {

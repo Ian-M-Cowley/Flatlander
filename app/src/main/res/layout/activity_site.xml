@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/brownBlack"
     android:fitsSystemWindows="true"
     tools:context=".site.view.SiteActivity">
 
-    <include layout="@layout/item_site"/>
-
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/site_image_height"
-        android:background="@android:color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_site_header_title"
-            style="@style/TextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            tools:text="Mckinney Falls"/>
-
-        <TextView
-            android:id="@+id/text_site_header_description"
-            style="@style/TextDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            tools:text="Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, it\'s a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge. Mckinney Falls is one of our favorite places to hike. Just 20 minutes from downtown, its a real Austin gem. Mckinney has hiking and swimming. Be sure to check out the rock tunnel and the wooden bridge."/>
-
-    </LinearLayout>
+    <include
+        layout="@layout/item_site"
+        android:layout_height="275dp"
+        android:layout_width="match_parent"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_site_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:paddingTop="275dp"/>
 
     <include layout="@layout/layout_toolbar"/>
 
-</FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_heart_outline_creamy_white_24dp"
+        app:backgroundTint="@color/favoritesYellow"/>
+</android.support.design.widget.CoordinatorLayout>

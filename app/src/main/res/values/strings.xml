@@ -7,6 +7,14 @@
     <string name="category_swimming">Swimming</string>
     <string name="category_favorites">Favorites</string>
     <string name="categories_error_load">Error loading categories</string>
+    <string name="categories_favorites_empty_message">Favorite parks\nto view them here</string>
+    <string name="categories_error_need_upgrade">Please update Flatlander to continue using the app.</string>
+
+    <!-- SITE -->
+    <string name="sites_favorite">ADDED TO FAVORITES</string>
+    <string name="sites_unfavorite">REMOVED FROM FAVORITES</string>
+    <string name="sites_error_favorite">FAILED TO ADD TO FAVORITES</string>
+    <string name="sites_error_unfavorite">FAILED TO REMOVE FROM FAVORITES</string>
 
     <!-- GENERIC STRINGS -->
     <string name="loading">Loading…</string>

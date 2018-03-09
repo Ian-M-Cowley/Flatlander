@@ -11,9 +11,13 @@ interface CategoriesContract {
 
     interface Interactor {
         fun getCategories() : Single<List<Category>>
+        fun getMinimumVersion() : Single<Long>
     }
 
     interface View : BaseContract.View {
+
+        fun close()
+
         fun goToCategoryDetailScreen(category: Category)
 
         fun setCategories(categories: List<Category>)

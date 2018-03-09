@@ -40,15 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "103871613806-98luvshk7qgnu8b7dp0uhivhqvg4pg9m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
               "client_id": "103871613806-r1t1bit0l45st3k3nlrebtmjienvc5r2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.colony.flatlander"
               }
-            },
-            {
-              "client_id": "103871613806-98luvshk7qgnu8b7dp0uhivhqvg4pg9m.apps.googleusercontent.com",
-              "client_type": 3
             }
           ]
         },

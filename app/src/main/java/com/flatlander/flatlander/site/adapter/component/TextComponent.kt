@@ -1,5 +1,7 @@
 package com.flatlander.flatlander.site.adapter.component
 
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.view.View
 import android.widget.TextView
 import butterknife.BindView
@@ -13,8 +15,8 @@ import com.flatlander.flatlander.model.siteitem.TextSiteItem
  */
 class TextComponent(itemView: View?) : BaseComponent(itemView) {
 
-    @BindView(R.id.text_title) lateinit var titleText : TextView
-    @BindView(R.id.text_description) lateinit var descriptionText : TextView
+    @BindView(R.id.text_title) lateinit var titleText: TextView
+    @BindView(R.id.text_description) lateinit var descriptionText: TextView
 
     init {
         ButterKnife.bind(this, itemView!!)
@@ -24,5 +26,14 @@ class TextComponent(itemView: View?) : BaseComponent(itemView) {
         val textSiteItem = siteItem as TextSiteItem
         titleText.text = textSiteItem.title
         descriptionText.text = textSiteItem.description
+        if (textSiteItem.title == null) {
+            titleText.visibility = View.GONE
+        } else {
+            titleText.visibility = View.VISIBLE
+        }
+
+        if (SDK_INT >= LOLLIPOP) {
+            titleText.letterSpacing = 0.1f
+        }
     }
 }

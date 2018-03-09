@@ -3,10 +3,14 @@ package com.flatlander.flatlander.model.siteitem
 /**
  * Created by iancowley on 7/31/17.
  */
-class MapSiteItem(id: Int,
+class MapSiteItem(id: String,
                   type: String,
-                  var lat: Float,
-                  var lng : Float,
+                  hikingRank: Long,
+                  campingRank: Long,
+                  swimmingRank: Long,
+                  var lat: String,
+                  var long: String,
                   var name: String,
-                  var googlePlacesId: String) : BaseSiteItem(id, type) {
+                  var googlePlaceId: String) : BaseSiteItem(id, type, hikingRank, campingRank, swimmingRank) {
+    constructor() : this("", "", -1, -1, -1, "0.0", "0.0", "", "")
 }

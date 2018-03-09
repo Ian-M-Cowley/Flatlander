@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.flatlander.flatlander.R
+import com.flatlander.flatlander.analytics.EVENT_MENU_VIEW
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.categories.detail.view.CategoryDetailActivity
 import com.flatlander.flatlander.categories.list.CategoriesContract
@@ -17,6 +19,8 @@ import com.flatlander.flatlander.categories.list.adapter.CategoriesRecyclerAdapt
 import com.flatlander.flatlander.categories.list.interactor.CategoriesInteractor
 import com.flatlander.flatlander.categories.list.presenter.CategoriesPresenter
 import com.flatlander.flatlander.model.Category
+import com.google.firebase.analytics.FirebaseAnalytics
+
 
 class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
 
@@ -31,7 +35,7 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
         }
     }
 
-    override @LayoutRes fun getLayoutResourceId(): Int {
+    @LayoutRes override fun getLayoutResourceId(): Int {
         return R.layout.activity_categories
     }
 
@@ -43,6 +47,10 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
 
         presenter = CategoriesPresenter(this, CategoriesInteractor())
         presenter.onViewAdded()
+
+        if (savedInstanceState == null) {
+            FirebaseAnalytics.getInstance(this).logEvent(EVENT_MENU_VIEW, null)
+        }
     }
 
     override fun onDestroy() {
@@ -50,12 +58,21 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
         presenter.onViewRemoved()
     }
 
+    override fun close() {
+        finish()
+    }
+
     override fun goToCategoryDetailScreen(category: Category) {
         startActivity(CategoryDetailActivity.newIntent(this, category))
     }
 
     override fun setCategories(categories: List<Category>) {
-        categoryRecyclerAdapter = CategoriesRecyclerAdapter(this, categories, object : Listener {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val statusBarHeight = Math.ceil(25 * displayMetrics.density.toDouble()).toInt()
+        val itemHeight = (displayMetrics.heightPixels - statusBarHeight) / 4
+
+        categoryRecyclerAdapter = CategoriesRecyclerAdapter(this, categories, itemHeight, object : Listener {
             override fun onCategoryClicked(category: Category) {
                 presenter.onCategoryClicked(category)
             }
