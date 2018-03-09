@@ -50,8 +50,8 @@ class SiteRecyclerAdapter(context: Context, val category: Category, val sites: L
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val siteImage : ImageView = view.image_site
-        val siteNameText : TextView = view.text_site_name
+        val siteImage: ImageView = view.image_site
+        val siteNameText: TextView = view.text_site_name
         val siteCategoryText: TextView = view.text_site_category
     }
 

@@ -15,12 +15,14 @@ import com.flatlander.flatlander.R
 abstract class BaseContractActivity : AppCompatActivity(), BaseContract.View {
 
 
-    @LayoutRes protected abstract fun getLayoutResourceId(): Int
+    @LayoutRes
+    protected abstract fun getLayoutResourceId(): Int
+
     protected abstract fun onErrorDismissed(id: Int)
     protected abstract fun onMessagePositive(id: Int)
     protected abstract fun onMessageNegative(id: Int)
 
-    private var progressDialog : ProgressDialog ? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

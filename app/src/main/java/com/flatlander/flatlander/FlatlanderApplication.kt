@@ -5,7 +5,6 @@ import com.flatlander.flatlander.data.LocalFavoritesRepository
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
-
 /**
  * Created by iancowley on 1/28/18.
  */

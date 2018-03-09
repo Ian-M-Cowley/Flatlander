@@ -8,7 +8,7 @@ class ImageSiteItem(id: String,
                     hikingRank: Long,
                     campingRank: Long,
                     swimmingRank: Long,
-                    var imageUrl : String,
+                    var imageUrl: String,
                     var width: String,
-                    var height : String) : BaseSiteItem(id, type, hikingRank, campingRank, swimmingRank) {
+                    var height: String) : BaseSiteItem(id, type, hikingRank, campingRank, swimmingRank) {
 }

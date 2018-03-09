@@ -42,7 +42,7 @@ class CategoriesRecyclerAdapter(context: Context, val categories: List<Category>
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image : ImageView = view.image_category
+        val image: ImageView = view.image_category
     }
 
     interface Listener {

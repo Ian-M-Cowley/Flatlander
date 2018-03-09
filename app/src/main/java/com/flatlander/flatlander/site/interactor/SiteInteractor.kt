@@ -16,10 +16,10 @@ import io.reactivex.schedulers.Schedulers
  */
 class SiteInteractor : SiteContract.Interactor {
 
-    private val dataSource : SitesRepository = FirebaseSitesRepository.instance
+    private val dataSource: SitesRepository = FirebaseSitesRepository.instance
     private val favoritesDataSource: FavoritesRepository = LocalFavoritesRepository.instance
 
-    override fun getSite(siteId: String) : Single<Site> {
+    override fun getSite(siteId: String): Single<Site> {
         return dataSource.getSiteById(siteId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

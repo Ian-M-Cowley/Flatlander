@@ -52,14 +52,15 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         private const val EXTRA_CATEGORY = "category"
         private const val REQUEST_SITE = 123
 
-        fun newIntent(caller : Context, category: Category) : Intent {
+        fun newIntent(caller: Context, category: Category): Intent {
             val intent = Intent(caller, CategoryDetailActivity::class.java)
             intent.putExtra(EXTRA_CATEGORY, category)
             return intent
         }
     }
 
-    @LayoutRes override fun getLayoutResourceId(): Int {
+    @LayoutRes
+    override fun getLayoutResourceId(): Int {
         return R.layout.activity_category_detail
     }
 
@@ -99,7 +100,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 true

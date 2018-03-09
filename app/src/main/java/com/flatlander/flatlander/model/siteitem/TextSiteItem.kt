@@ -8,6 +8,6 @@ class TextSiteItem(id: String,
                    hikingRank: Long,
                    campingRank: Long,
                    swimmingRank: Long,
-                   var title: String ?,
-                   var description : String) : BaseSiteItem(id, type, hikingRank, campingRank, swimmingRank) {
+                   var title: String?,
+                   var description: String) : BaseSiteItem(id, type, hikingRank, campingRank, swimmingRank) {
 }

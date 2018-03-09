@@ -12,7 +12,10 @@ import io.reactivex.Single
  */
 class LocalFavoritesRepository : FavoritesRepository {
 
-    private object Holder { val INSTANCE = LocalFavoritesRepository() }
+    private object Holder {
+        val INSTANCE = LocalFavoritesRepository()
+    }
+
     private lateinit var context: Context
     private lateinit var sharedPrefs: SharedPreferences
 

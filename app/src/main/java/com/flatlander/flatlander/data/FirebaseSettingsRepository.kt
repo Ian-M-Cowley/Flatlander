@@ -6,9 +6,11 @@ import io.reactivex.Single
 /**
  * Created by iancowley on 3/5/18.
  */
-class FirebaseSettingsRepository: SettingsRepository {
+class FirebaseSettingsRepository : SettingsRepository {
 
-    private object Holder { val INSTANCE = FirebaseSettingsRepository() }
+    private object Holder {
+        val INSTANCE = FirebaseSettingsRepository()
+    }
 
     companion object {
         private val TAG = FirebaseSettingsRepository::class.java.simpleName

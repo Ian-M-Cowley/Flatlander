@@ -24,17 +24,17 @@ interface BaseContract {
 
         fun showProgress(@StringRes progressTextRes: Int)
 
-        fun showProgress(progressText : String)
+        fun showProgress(progressText: String)
 
         fun hideProgress()
     }
 
     interface Presenter<V : View> {
-        val view : V
+        val view: V
         fun onViewAdded()
         fun onViewRemoved()
-        fun onErrorDismissed(id : Int)
-        fun onMessagePositive(id : Int)
-        fun onMessageNegative(id : Int)
+        fun onErrorDismissed(id: Int)
+        fun onMessagePositive(id: Int)
+        fun onMessageNegative(id: Int)
     }
 }

@@ -14,14 +14,14 @@ import io.reactivex.Single
  */
 class CategoryDetailInteractor : CategoryDetailContract.Interactor {
 
-    private val dataSource : CategoriesRepository = FirebaseCategoriesRepository.instance
+    private val dataSource: CategoriesRepository = FirebaseCategoriesRepository.instance
     private val favoritesDataSource: FavoritesRepository = LocalFavoritesRepository.instance
 
     override fun getSitesForCategory(category: Category): Single<List<SiteLite>> {
         if (category.id == "favorites") {
             return favoritesDataSource.getFavoriteSites()
         }
-        
+
         return dataSource.getSitesForCategory(category)
     }
 }

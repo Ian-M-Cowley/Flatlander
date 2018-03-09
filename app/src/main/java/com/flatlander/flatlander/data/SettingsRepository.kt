@@ -7,5 +7,5 @@ import io.reactivex.Single
  */
 interface SettingsRepository {
 
-    fun getMinimumVersion() : Single<Long>
+    fun getMinimumVersion(): Single<Long>
 }

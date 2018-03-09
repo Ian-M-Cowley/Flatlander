@@ -15,7 +15,7 @@ open class SiteLite : Serializable {
     var description: String = ""
     var defaultMapSiteItem: MapSiteItem? = null
 
-    fun getUniqueId() : String {
+    fun getUniqueId(): String {
         return category + id
     }
 

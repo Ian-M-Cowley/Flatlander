@@ -8,9 +8,11 @@ import io.reactivex.Single
 /**
  * Created by iancowley on 8/24/17.
  */
-class TestCategoriesRepository private constructor() : CategoriesRepository  {
+class TestCategoriesRepository private constructor() : CategoriesRepository {
 
-    private object Holder { val INSTANCE = TestCategoriesRepository() }
+    private object Holder {
+        val INSTANCE = TestCategoriesRepository()
+    }
 
     companion object {
         val instance: TestCategoriesRepository by lazy { Holder.INSTANCE }
