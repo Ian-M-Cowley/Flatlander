@@ -50,7 +50,14 @@ class LocalFavoritesRepository : FavoritesRepository {
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_IDS, ids).commit()
 
         val sites = sharedPrefs.getStringSet(PREF_FAVORITE_SITES, mutableSetOf())
-        sites.remove(Gson().toJson(siteLite))
+        val gson = Gson()
+        var siteTextToRemove = ""
+        sites.iterator().forEach {
+            if (gson.fromJson(it, siteLite.javaClass).getUniqueId() == siteLite.getUniqueId()) {
+                siteTextToRemove = it
+            }
+        }
+        sites.remove(siteTextToRemove)
         sharedPrefs.edit().putStringSet(PREF_FAVORITE_SITES, sites).commit()
         return Single.just(true)
     }

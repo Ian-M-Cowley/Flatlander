@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.item_site.view.*
  */
 class SiteRecyclerAdapter(context: Context, val category: Category, val sites: List<SiteLite>, val listener: Listener) : RecyclerView.Adapter<SiteRecyclerAdapter.ViewHolder>() {
 
-    val layoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         return ViewHolder(layoutInflater.inflate(R.layout.item_site, parent, false))
@@ -31,6 +31,10 @@ class SiteRecyclerAdapter(context: Context, val category: Category, val sites: L
         bind(viewHolder!!, site)
         viewHolder.itemView.tag = site
         viewHolder.itemView.setOnClickListener({ v -> listener.onSiteClicked(v.tag as SiteLite) })
+
+        if (site.distance > 0) {
+            viewHolder.siteDistanceText.text = String.format("%d mi", site.distance)
+        }
     }
 
     private fun bind(viewHolder: ViewHolder, site: SiteLite) {
@@ -53,6 +57,7 @@ class SiteRecyclerAdapter(context: Context, val category: Category, val sites: L
         val siteImage: ImageView = view.image_site
         val siteNameText: TextView = view.text_site_name
         val siteCategoryText: TextView = view.text_site_category
+        val siteDistanceText: TextView = view.text_site_distance
     }
 
     interface Listener {

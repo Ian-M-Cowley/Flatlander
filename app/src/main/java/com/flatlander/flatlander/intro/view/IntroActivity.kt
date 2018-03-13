@@ -12,6 +12,7 @@ import butterknife.ButterKnife
 import com.flatlander.flatlander.R
 import com.flatlander.flatlander.base.BaseContractActivity
 import com.flatlander.flatlander.categories.list.view.CategoriesActivity
+import com.flatlander.flatlander.data.SharedPrefs
 import com.flatlander.flatlander.intro.IntroContract
 import com.flatlander.flatlander.intro.interactor.IntroInteractor
 import com.flatlander.flatlander.intro.presenter.IntroPresenter
@@ -48,6 +49,8 @@ class IntroActivity : BaseContractActivity(), IntroContract.View {
 
         presenter = IntroPresenter(this, IntroInteractor())
         presenter.onViewAdded()
+
+        SharedPrefs.instance.sethasSeenIntro(true)
     }
 
     override fun attachBaseContext(newBase: Context?) {
