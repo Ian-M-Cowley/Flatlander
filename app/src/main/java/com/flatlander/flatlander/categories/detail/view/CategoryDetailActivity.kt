@@ -9,6 +9,7 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import android.support.v7.widget.LinearLayoutManager
@@ -16,8 +17,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -32,8 +31,10 @@ import com.flatlander.flatlander.categories.detail.presenter.CategoryDetailPrese
 import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.site.view.SiteActivity
+import com.flatlander.flatlander.utils.show
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.analytics.FirebaseAnalytics
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -50,6 +51,8 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     @BindView(R.id.recycler_sites) lateinit var sitesRecycler: RecyclerView
     @BindView(R.id.layout_favorites_empty) lateinit var favoritesEmptyLayout: View
     @BindView(R.id.text_favorites_empty_message) lateinit var favoritesEmptyMessage: TextView
+    @BindView(R.id.map) lateinit var mapView: MapView
+    @BindView(R.id.fab_toggle_map_list) lateinit var toggleMapListFab: FloatingActionButton
 
     lateinit var presenter: CategoryDetailContract.Presenter
     private lateinit var siteRecyclerAdapter: SiteRecyclerAdapter
@@ -77,12 +80,16 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
+        mapView.onCreate(savedInstanceState)
 
         category = intent.getSerializableExtra(EXTRA_CATEGORY) as Category
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toggleMapListFab.hide()
+        toggleMapListFab.setOnClickListener { presenter.onToggleMapListFabClicked() }
 
         sitesRecycler.layoutManager = LinearLayoutManager(this)
 
@@ -109,9 +116,35 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        mapView.onPause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        mapView.onStop()
+        super.onStop()
+    }
+
     override fun onDestroy() {
-        super.onDestroy()
+        mapView.onDestroy()
         presenter.onViewRemoved()
+        super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -165,10 +198,27 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun showFavoritesEmptyState(show: Boolean) {
+        favoritesEmptyLayout.show(show)
+    }
+
+    override fun showSiteList(show: Boolean) {
+        sitesRecycler.show(show)
+    }
+
+    override fun showToggleMapListFab(show: Boolean) {
         if (show) {
-            favoritesEmptyLayout.visibility = VISIBLE
+            toggleMapListFab.show()
         } else {
-            favoritesEmptyLayout.visibility = GONE
+            toggleMapListFab.hide()
+        }
+    }
+
+    override fun showMap(show: Boolean) {
+        mapView.show(show)
+        if (show) {
+            toggleMapListFab.setImageResource(R.drawable.ic_list_creamy_white_24dp)
+        } else {
+            toggleMapListFab.setImageResource(R.drawable.ic_map_creamy_white_24dp)
         }
     }
 

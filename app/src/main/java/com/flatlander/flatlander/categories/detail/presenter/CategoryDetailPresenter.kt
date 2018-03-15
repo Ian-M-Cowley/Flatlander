@@ -19,7 +19,8 @@ class CategoryDetailPresenter(override val view: CategoryDetailContract.View,
         private const val ERROR_LOADING = 0
     }
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
+    private var isShowingMap = false
 
     override fun onViewAdded() {
         view.setHeaderColor(Color.parseColor(category.backgroundColor))
@@ -32,12 +33,20 @@ class CategoryDetailPresenter(override val view: CategoryDetailContract.View,
 
     override fun onViewReturnedTo() {
         if (category.id == "favorites") {
+            view.showToggleMapListFab(false)
             loadSites()
         }
     }
 
     override fun onSiteClicked(siteLite: SiteLite) {
         view.goToSiteScreen(category, siteLite)
+    }
+
+    override fun onToggleMapListFabClicked() {
+        isShowingMap = !isShowingMap
+
+        view.showMap(isShowingMap)
+        view.showSiteList(!isShowingMap)
     }
 
     private fun loadSites() {
@@ -48,6 +57,7 @@ class CategoryDetailPresenter(override val view: CategoryDetailContract.View,
                 .subscribe({
                     view.setSites(it)
                     view.showFavoritesEmptyState(category.id == "favorites" && it.isEmpty())
+                    view.showToggleMapListFab(!it.isEmpty())
                 }, {
                     Log.d(TAG, it.message)
                     view.showError(ERROR_LOADING, R.string.categories_error_load)

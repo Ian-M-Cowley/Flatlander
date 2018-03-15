@@ -21,10 +21,14 @@ interface CategoryDetailContract {
         fun setSites(sites: List<SiteLite>)
         fun setHeaderColor(@ColorInt color: Int)
         fun showFavoritesEmptyState(show: Boolean)
+        fun showSiteList(show: Boolean)
+        fun showMap(show: Boolean)
+        fun showToggleMapListFab(show: Boolean)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
         fun onViewReturnedTo()
         fun onSiteClicked(site: SiteLite)
+        fun onToggleMapListFabClicked()
     }
 }
