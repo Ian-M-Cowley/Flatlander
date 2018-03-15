@@ -37,6 +37,7 @@ class SitePresenter(override val view: SiteContract.View,
 
         view.setSiteName(siteLite.name)
         view.loadSiteImage(siteLite.imageUrl)
+        view.setSiteDistance("${siteLite.distance} mi")
 
         isFavorite = interactor.isSiteFavorite(siteLite)
         view.setFavorite(isFavorite)
