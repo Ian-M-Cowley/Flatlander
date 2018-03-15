@@ -35,7 +35,8 @@ class CategoriesActivity : BaseContractActivity(), CategoriesContract.View {
         }
     }
 
-    @LayoutRes override fun getLayoutResourceId(): Int {
+    @LayoutRes
+    override fun getLayoutResourceId(): Int {
         return R.layout.activity_categories
     }
 

@@ -9,7 +9,7 @@ import io.reactivex.Single
  */
 interface CategoriesRepository {
 
-    fun getCategories() : Single<List<Category>>
+    fun getCategories(): Single<List<Category>>
 
-    fun getSitesForCategory(category: Category) : Single<List<SiteLite>>
+    fun getSitesForCategory(category: Category): Single<List<SiteLite>>
 }

@@ -33,10 +33,8 @@ import com.google.firebase.analytics.FirebaseAnalytics
  */
 class MapActivity : BaseContractActivity(), MapContract.View {
 
-    @BindView(R.id.map)
-    lateinit var mapView: MapView
-    @BindView(R.id.fab_navigation)
-    lateinit var navigationFab: FloatingActionButton
+    @BindView(R.id.map) lateinit var mapView: MapView
+    @BindView(R.id.fab_navigation) lateinit var navigationFab: FloatingActionButton
 
     lateinit var presenter: MapContract.Presenter
     lateinit var map: GoogleMap
@@ -55,7 +53,8 @@ class MapActivity : BaseContractActivity(), MapContract.View {
         }
     }
 
-    @LayoutRes override fun getLayoutResourceId(): Int {
+    @LayoutRes
+    override fun getLayoutResourceId(): Int {
         return R.layout.activity_map
     }
 

@@ -43,8 +43,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyUtils
 class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
-    @BindView(R.id.image_site)  lateinit var siteImage: ImageView
+    @BindView(R.id.image_site) lateinit var siteImage: ImageView
     @BindView(R.id.text_site_name) lateinit var siteName: TextView
+    @BindView(R.id.text_site_distance) lateinit var siteDistance: TextView
     @BindView(R.id.recycler_site_items) lateinit var recyclerView: RecyclerView
     @BindView(R.id.fab_favorite) lateinit var favoriteButton: FloatingActionButton
 
@@ -66,7 +67,8 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
         }
     }
 
-    @LayoutRes override fun getLayoutResourceId(): Int {
+    @LayoutRes
+    override fun getLayoutResourceId(): Int {
         return R.layout.activity_site
     }
 
@@ -136,6 +138,10 @@ class SiteActivity : BaseContractActivity(), SiteContract.View {
 
     override fun loadSiteImage(url: String) {
         siteImage.loadImage(url, resources.getColor(R.color.creamyWhite))
+    }
+
+    override fun setSiteDistance(distance: String) {
+        siteDistance.text = distance
     }
 
     override fun setSiteItems(siteItems: List<BaseSiteItem>) {

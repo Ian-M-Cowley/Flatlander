@@ -10,8 +10,8 @@ import io.reactivex.Single
 interface CategoriesContract {
 
     interface Interactor {
-        fun getCategories() : Single<List<Category>>
-        fun getMinimumVersion() : Single<Long>
+        fun getCategories(): Single<List<Category>>
+        fun getMinimumVersion(): Single<Long>
     }
 
     interface View : BaseContract.View {
@@ -24,6 +24,6 @@ interface CategoriesContract {
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun onCategoryClicked(category : Category)
+        fun onCategoryClicked(category: Category)
     }
 }

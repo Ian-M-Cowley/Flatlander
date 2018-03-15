@@ -44,4 +44,16 @@
         tools:ignore="MissingPrefix"
         tools:text="Site Category"/>
 
+    <TextView
+        android:id="@+id/text_site_distance"
+        fontPath="fonts/highway-gothic-wide.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="8dp"
+        android:textSize="14sp"
+        android:textColor="@color/creamyWhite"
+        tools:ignore="MissingPrefix"
+        tools:text="Site Category"/>
+
 </FrameLayout>

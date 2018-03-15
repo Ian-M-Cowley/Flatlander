@@ -8,7 +8,6 @@ import io.reactivex.SingleEmitter
 import io.reactivex.SingleOnSubscribe
 
 
-
 /**
  * Created by iancowley on 9/20/17.
  */

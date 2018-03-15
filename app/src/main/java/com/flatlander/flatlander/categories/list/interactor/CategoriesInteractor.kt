@@ -15,8 +15,8 @@ import io.reactivex.schedulers.Schedulers
  */
 class CategoriesInteractor : CategoriesContract.Interactor {
 
-    private val dataSource : CategoriesRepository = FirebaseCategoriesRepository.instance
-    private val settingsDataSource : SettingsRepository = FirebaseSettingsRepository.instance
+    private val dataSource: CategoriesRepository = FirebaseCategoriesRepository.instance
+    private val settingsDataSource: SettingsRepository = FirebaseSettingsRepository.instance
 
     override fun getCategories(): Single<List<Category>> {
         return dataSource.getCategories()

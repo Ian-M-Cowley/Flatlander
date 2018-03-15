@@ -18,11 +18,11 @@ import com.flatlander.flatlander.site.adapter.component.TextComponent
 /**
  * Created by iancowley on 9/13/17.
  */
-class SiteItemRecyclerAdapter(private val context : Context,
+class SiteItemRecyclerAdapter(private val context: Context,
                               private val siteItems: List<BaseSiteItem>,
                               private val listener: Listener) : RecyclerView.Adapter<BaseComponent>() {
 
-    private val inflater : LayoutInflater = LayoutInflater.from(context)
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     companion object {
         private const val TYPE_INVALID = -1
@@ -60,7 +60,7 @@ class SiteItemRecyclerAdapter(private val context : Context,
             val mapComponent = holder as MapComponent
             mapComponent.touchShield.tag = siteItem
             mapComponent.touchShield.setOnTouchListener(View.OnTouchListener { v, event ->
-                when(event.action) {
+                when (event.action) {
                     ACTION_UP -> {
                         listener.onMapItemSelected(v.tag as MapSiteItem)
                     }

@@ -12,7 +12,7 @@ import io.reactivex.Single
 interface CategoryDetailContract {
 
     interface Interactor {
-        fun getSitesForCategory(category: Category) : Single<List<SiteLite>>
+        fun getSitesForCategory(category: Category): Single<List<SiteLite>>
     }
 
     interface View : BaseContract.View {
@@ -25,6 +25,6 @@ interface CategoryDetailContract {
 
     interface Presenter : BaseContract.Presenter<View> {
         fun onViewReturnedTo()
-        fun onSiteClicked(site : SiteLite)
+        fun onSiteClicked(site: SiteLite)
     }
 }

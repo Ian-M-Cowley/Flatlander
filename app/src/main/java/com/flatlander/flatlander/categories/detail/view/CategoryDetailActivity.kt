@@ -1,12 +1,16 @@
 package com.flatlander.flatlander.categories.detail.view
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.PermissionChecker
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -28,8 +32,12 @@ import com.flatlander.flatlander.categories.detail.presenter.CategoryDetailPrese
 import com.flatlander.flatlander.model.Category
 import com.flatlander.flatlander.model.SiteLite
 import com.flatlander.flatlander.site.view.SiteActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.analytics.FirebaseAnalytics
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.util.*
 
 /**
  * Created by iancowley on 8/24/17.
@@ -46,20 +54,23 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     lateinit var presenter: CategoryDetailContract.Presenter
     private lateinit var siteRecyclerAdapter: SiteRecyclerAdapter
     private lateinit var category: Category
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var userLocation: Location? = null
 
     companion object {
 
         private const val EXTRA_CATEGORY = "category"
         private const val REQUEST_SITE = 123
 
-        fun newIntent(caller : Context, category: Category) : Intent {
+        fun newIntent(caller: Context, category: Category): Intent {
             val intent = Intent(caller, CategoryDetailActivity::class.java)
             intent.putExtra(EXTRA_CATEGORY, category)
             return intent
         }
     }
 
-    @LayoutRes override fun getLayoutResourceId(): Int {
+    @LayoutRes
+    override fun getLayoutResourceId(): Int {
         return R.layout.activity_category_detail
     }
 
@@ -80,7 +91,16 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
         }
 
         presenter = CategoryDetailPresenter(this, CategoryDetailInteractor(), category)
-        presenter.onViewAdded()
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PermissionChecker.PERMISSION_GRANTED) {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                userLocation = location
+                presenter.onViewAdded()
+            }
+        } else {
+            presenter.onViewAdded()
+        }
 
         if (savedInstanceState == null) {
             val params = Bundle()
@@ -99,7 +119,7 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 true
@@ -120,6 +140,17 @@ class CategoryDetailActivity : BaseContractActivity(), CategoryDetailContract.Vi
     }
 
     override fun setSites(sites: List<SiteLite>) {
+        if (userLocation != null) {
+            val userLocationLatLng = LatLng(userLocation!!.latitude, userLocation!!.longitude)
+            val results = floatArrayOf(0f)
+            for (site in sites) {
+                val siteLocation = LatLng(site.defaultMapSiteItem!!.lat.toDouble(), site.defaultMapSiteItem!!.long.toDouble())
+                Location.distanceBetween(siteLocation.latitude, siteLocation.longitude, userLocationLatLng.latitude, userLocationLatLng.longitude, results)
+                site.distance = (results[0]/1609.34f).toInt()
+            }
+            Collections.sort(sites, { site1, site2 -> site1.distance - site2.distance })
+        }
+
         siteRecyclerAdapter = SiteRecyclerAdapter(this, category, sites, object : SiteRecyclerAdapter.Listener {
             override fun onSiteClicked(site: SiteLite) {
                 presenter.onSiteClicked(site)

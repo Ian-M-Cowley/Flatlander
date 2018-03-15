@@ -31,12 +31,13 @@ class SitePresenter(override val view: SiteContract.View,
 
     override fun onViewAdded() {
         // Add the header title and description
-        siteItems.add( TextSiteItem("-1", "text", 0, 0, 0, siteLite.title, siteLite.description))
+        siteItems.add(TextSiteItem("-1", "text", 0, 0, 0, siteLite.title, siteLite.description))
         siteLite.defaultMapSiteItem.let { siteItems.add(it!!) }
         view.setSiteItems(siteItems)
 
         view.setSiteName(siteLite.name)
         view.loadSiteImage(siteLite.imageUrl)
+        view.setSiteDistance("${siteLite.distance} mi")
 
         isFavorite = interactor.isSiteFavorite(siteLite)
         view.setFavorite(isFavorite)

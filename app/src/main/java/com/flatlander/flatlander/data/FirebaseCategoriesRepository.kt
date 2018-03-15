@@ -9,9 +9,11 @@ import io.reactivex.Single
 /**
  * Created by iancowley on 9/20/17.
  */
-class FirebaseCategoriesRepository private constructor() : CategoriesRepository  {
+class FirebaseCategoriesRepository private constructor() : CategoriesRepository {
 
-    private object Holder { val INSTANCE = FirebaseCategoriesRepository() }
+    private object Holder {
+        val INSTANCE = FirebaseCategoriesRepository()
+    }
 
     companion object {
         private val TAG = FirebaseCategoriesRepository::class.java.simpleName

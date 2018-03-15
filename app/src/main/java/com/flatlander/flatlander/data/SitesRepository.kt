@@ -8,5 +8,5 @@ import io.reactivex.Single
  */
 interface SitesRepository {
 
-    fun getSiteById(id: String) : Single<Site>
+    fun getSiteById(id: String): Single<Site>
 }

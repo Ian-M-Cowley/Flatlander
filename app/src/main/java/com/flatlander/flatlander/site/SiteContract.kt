@@ -33,6 +33,8 @@ interface SiteContract {
 
         fun loadSiteImage(url: String)
 
+        fun setSiteDistance(distance: String)
+
         fun setFavorite(isFavorite: Boolean)
 
         fun showSnackbar(@StringRes message: Int)

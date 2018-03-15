@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
  */
 class ImageComponent(itemView: View?) : BaseComponent(itemView) {
 
-    @BindView(R.id.image_item) lateinit var itemImage : ImageView
+    @BindView(R.id.image_item) lateinit var itemImage: ImageView
 
     init {
         ButterKnife.bind(this, itemView!!)
